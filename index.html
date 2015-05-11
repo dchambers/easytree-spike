@@ -1,0 +1,67 @@
+<div id="kendoui.easytree.view-template">
+  <div data-bind="easyTree: treeMenuData"></div>
+</div>
+
+<script src="jquery-2.1.4.js"></script>
+<script src="EasyTree/jquery.easytree.js"></script>
+<link href="EasyTree/skin-lion/ui.easytree.css" rel="stylesheet">
+<script src="knockout-3.3.0.debug.js"></script>
+<script>
+  ko.bindingHandlers.easyTree = {
+    init: function(element, valueAccessor, allBindings, data, context){
+      var easytree = $(element).easytree({data: ko.unwrap(valueAccessor())})
+      context.easytree = easytree
+
+      console.log("easytree:" + JSON.stringify(context.easytree))
+    }
+  }
+
+  function TreeViewModel() {
+    this.treeMenuData = ko.observableArray([
+      {
+        "href":"http:\/\/www.easyjstree.com",
+        "hrefTarget":"_blank",
+        "text":"Home"
+      },
+      {
+        "children":[
+          {
+            "href":"http:\/\/www.google.com",
+            "hrefTarget":"_blank",
+            "text":"Go to Google.com"
+          },
+          {
+            "href":"http:\/\/www.yahoo.com",
+            "hrefTarget":"_blank",
+            "text":"Go to Yahoo.com"
+          }
+        ],
+        "isActive":false,
+        "isExpanded":true,
+        "isFolder":true,
+        "text":"Folder 1",
+        "tooltip":"Bookmarks"
+      },
+      {
+        "children":[
+          {
+            "text":"Sub Node 1"
+          },
+          {
+            "text":"Sub Node 2"
+          },
+          {
+            "text":"Sub Node 3"
+          }
+        ],
+        "isActive":false,
+        "text":"Node 1"
+      },
+      {
+        "text":"Node 2"
+      }
+    ]);
+  }
+
+  ko.applyBindings(new TreeViewModel());
+</script>
